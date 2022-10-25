@@ -1,55 +1,76 @@
-import React from "react";
-import logo from "../assets/images/logo.svg";
+import React, { useState } from "react";
 import "../assets/styles/Register.sass";
+import { Logo, FormRow } from "../components";
+
+//Local state
+const initialState = {
+  name: "",
+  password: "",
+  email: "",
+  isMember: true,
+};
 
 const Register = () => {
+  const [values, setValues] = useState(initialState);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, password, email, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      console.log("Fill out all fields");
+    }
+  };
+
+  const toggleMember = () => {
+    setValues({ ...values, isMember: !values.isMember });
+  };
+
   return (
-    <div className="register-container">
-      <div className="register">
-        <div className="register-heading">
-          <img src={logo} alt="logo" />
-          <h2>Register</h2>
-        </div>
-        <form>
-          <div className="form-field">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input type="text" name="name" id="name" className="form-input" />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="form-input"
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="form-input"
-            />
-          </div>
-        </form>
-        <div className="btn-container">
-          <button className="btn hero-btn">Submit</button>
-          <button className="btn">Demo App</button>
-        </div>
-        <div className="register-footer">
-          <p>Already a member</p>
-          <button>Login</button>
-        </div>
-      </div>
-    </div>
+    <section className="full-page">
+      <form onSubmit={handleSubmit} className="form">
+        <Logo />
+        <h3>{values.isMember ? "Login" : "Register"}</h3>
+        {!values.isMember && (
+          // Name field
+          <FormRow
+            type="text"
+            name="name"
+            value={values.name}
+            handleChange={handleChange}
+          />
+        )}
+        {/* email field */}
+        <FormRow
+          type="email"
+          name="email"
+          value={values.email}
+          handleChange={handleChange}
+        />
+        {/* password field */}
+        <FormRow
+          type="password"
+          name="password"
+          value={values.password}
+          handleChange={handleChange}
+        />
+        <button type="submit" className="btn btn-block">
+          submit
+        </button>
+        <button className="btn btn-block btn-demo">Demo app</button>
+        <p>
+          {values.isMember ? "Not a member yet?" : "Already a member?"}
+          <button className="btn-member" onClick={toggleMember} type="button">
+            {values.isMember ? "Register" : "Login"}
+          </button>
+        </p>
+      </form>
+    </section>
   );
 };
 
