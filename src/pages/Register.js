@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/styles/Register.sass";
 import { Logo, FormRow } from "../components";
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, registerUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 //Local state
 const initialState = {
@@ -13,6 +17,10 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
 
+  const dispatch = useDispatch();
+  const { isLoading, user } = useSelector((store) => store.user);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -23,13 +31,28 @@ const Register = () => {
     e.preventDefault();
     const { name, password, email, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
-      console.log("Fill out all fields");
+      toast.error("Fill out all fields");
+      return;
     }
+    if (isMember) {
+      dispatch(loginUser({ email: email, password: password }));
+      return;
+    }
+    dispatch(registerUser({ name, email, password }));
   };
-
+  // Login/register logic
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
+
+  //Automatic navigate
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [user, navigate]);
 
   return (
     <section className="full-page">
@@ -60,12 +83,17 @@ const Register = () => {
           handleChange={handleChange}
         />
         <button type="submit" className="btn btn-block">
-          submit
+          {isLoading ? "loading..." : "submit"}
         </button>
         <button className="btn btn-block btn-demo">Demo app</button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
-          <button className="btn-member" onClick={toggleMember} type="button">
+          <button
+            className="btn-member"
+            onClick={toggleMember}
+            type="button"
+            disabled={isLoading}
+          >
             {values.isMember ? "Register" : "Login"}
           </button>
         </p>
