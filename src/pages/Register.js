@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "../assets/styles/Register.sass";
 import { Logo, FormRow } from "../components";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, registerUser } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import Wrapper from "../assets/wrappers/RegisterPage";
 
 //Local state
 const initialState = {
@@ -55,7 +55,7 @@ const Register = () => {
   }, [user, navigate]);
 
   return (
-    <section className="full-page">
+    <Wrapper className="full-page">
       <form onSubmit={handleSubmit} className="form">
         <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
@@ -85,11 +85,11 @@ const Register = () => {
         <button type="submit" className="btn btn-block">
           {isLoading ? "loading..." : "submit"}
         </button>
-        <button className="btn btn-block btn-demo">Demo app</button>
+        <button className="btn btn-block btn-hipster">Demo app</button>
         <p>
           {values.isMember ? "Not a member yet?" : "Already a member?"}
           <button
-            className="btn-member"
+            className="member-btn"
             onClick={toggleMember}
             type="button"
             disabled={isLoading}
@@ -98,7 +98,7 @@ const Register = () => {
           </button>
         </p>
       </form>
-    </section>
+    </Wrapper>
   );
 };
 

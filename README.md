@@ -926,8 +926,6 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-
-
   return (
     <Wrapper>
       <div className='nav-center'>

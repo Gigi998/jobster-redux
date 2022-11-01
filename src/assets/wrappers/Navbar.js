@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Wrapper = styled.nav`
   height: var(--nav-height);
@@ -14,6 +14,7 @@ const Wrapper = styled.nav`
   .nav-center {
     display: flex;
     width: 90vw;
+    /* width: 100vw; */
     align-items: center;
     justify-content: space-between;
   }
@@ -41,7 +42,7 @@ const Wrapper = styled.nav`
 
   .dropdown {
     position: absolute;
-    top: 40px;
+    top: 60px;
     left: 0;
     width: 100%;
     background: var(--primary-100);
@@ -69,7 +70,6 @@ const Wrapper = styled.nav`
   @media (min-width: 992px) {
     position: sticky;
     top: 0;
-
     .nav-center {
       width: 90%;
     }
@@ -80,5 +80,5 @@ const Wrapper = styled.nav`
       display: block;
     }
   }
-`
-export default Wrapper
+`;
+export default Wrapper;
