@@ -4,7 +4,7 @@ import Logo from "./Logo";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Wrapper from "../assets/wrappers/Navbar";
-import { toggleSidebar } from "../features/user/userSlice";
+import { toggleSidebar, logoutUser } from "../features/user/userSlice";
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.user);
@@ -31,7 +31,7 @@ const Navbar = () => {
           <h3 className="logo-text">dashboard</h3>
         </div>
         <div className="btn-container">
-          <button className="btn" onClick={() => toggleDropdown()}>
+          <button className="btn" onClick={toggleDropdown}>
             <FaUserCircle />
             {user?.name}
             <FaCaretDown />
@@ -40,7 +40,9 @@ const Navbar = () => {
             <button
               type="button"
               className="dropdown-btn"
-              onClick={() => console.log("sad")}
+              onClick={() => {
+                dispatch(logoutUser());
+              }}
             >
               logout
             </button>
