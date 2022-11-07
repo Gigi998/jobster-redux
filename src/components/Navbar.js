@@ -10,7 +10,7 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
-  const [showLogout, setShowLogout] = useState(true);
+  const [showLogout, setShowLogout] = useState(false);
 
   const toggleSB = () => {
     dispatch(toggleSidebar());
@@ -41,7 +41,7 @@ const Navbar = () => {
               type="button"
               className="dropdown-btn"
               onClick={() => {
-                dispatch(logoutUser());
+                dispatch(logoutUser("Logging out..."));
               }}
             >
               logout

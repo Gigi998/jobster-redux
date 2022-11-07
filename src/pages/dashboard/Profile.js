@@ -4,6 +4,7 @@ import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { FormRow } from "../../components";
 import { toast } from "react-toastify";
 import { updateUser } from "../../features/user/userSlice";
+
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((store) => store.user);
