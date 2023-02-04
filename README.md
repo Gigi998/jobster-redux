@@ -14,7 +14,7 @@ npm run install && npm start
 
 #### Techologies
 
- -Redux
- -Axios
- -React-router
- -Styled-components
+- Redux
+- Axios
+- React-router
+- Styled-components
